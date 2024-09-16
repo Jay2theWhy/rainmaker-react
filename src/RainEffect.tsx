@@ -66,13 +66,23 @@ function RainEffect() {
             }
           }
         };
+
+        const fallingSpeed: number = 30;
+        const interval = 1000 / fallingSpeed;
+        let lastTime = performance.now();
     
         let animationFrameId: number;
-        const render = () => {
-          draw();
+        const render = (now: number) => {
           animationFrameId = requestAnimationFrame(render);
+          const delta: number = now - lastTime;
+          if (delta >= interval) {
+            lastTime = now - (delta % interval);
+            draw();
+          }
         };
-        render();
+
+        // render();
+        animationFrameId = requestAnimationFrame(render);
     
         // Handle window resize
         const handleResize = () => {
