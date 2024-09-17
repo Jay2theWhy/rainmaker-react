@@ -1,4 +1,4 @@
-import RainEffect from './RainEffect';
+import RainEffect from './components/RainEffect';
 
 const App: React.FC = () => {
   return (
