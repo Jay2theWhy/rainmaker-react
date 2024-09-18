@@ -1,4 +1,4 @@
-import RainEffect from './components/RainEffect';
+import { RainEffect } from './components/RainEffect';
 import { SettingsPanel } from './components/SettingsPanel';
 
 const App: React.FC = () => {

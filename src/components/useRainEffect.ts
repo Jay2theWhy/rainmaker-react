@@ -3,9 +3,9 @@ import { createRainState, RainEffectState } from './RainState';
 import { drawRainEffect } from './drawRainEffect';
 
 export interface Options {
-    count: number
     width: number
     height: number
+    count: number
 }
 
 export function useRainEffect(
@@ -14,17 +14,17 @@ export function useRainEffect(
     stateReference: MutableRefObject<RainEffectState>,
 ) {
     const initialState = stateReference.current || createRainState({
-        count: options.count,
         height: options.height,
         width: options.width,
+        count: options.count,
     });
     
     if (options.count !== initialState.particles.length) {
         if (initialState.particles.length < options.count) {
             const { particles } = createRainState({
-                count: options.count - initialState.particles.length,
                 height: options.height,
                 width: options.width,
+                count: options.count - initialState.particles.length,
             });
             initialState.particles = [...initialState.particles, ...particles]
         } else {
