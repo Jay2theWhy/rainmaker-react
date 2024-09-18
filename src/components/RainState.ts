@@ -12,9 +12,9 @@ export interface ParticleState {
     ys: number;
 }
 
-export function createRainState (options: { width: number, height: number, count: number }): RainEffectState {
-    let width = options.width
-    let height = options.height
+export function createRainState (options: { count: number }): RainEffectState {
+    let width = window.innerWidth;
+    let height = window.innerHeight;
 
     return {
         width,

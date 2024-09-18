@@ -3,8 +3,6 @@ import { createRainState, RainEffectState } from './RainState';
 import { drawRainEffect } from './drawRainEffect';
 
 export interface Options {
-    width: number
-    height: number
     count: number
 }
 
@@ -14,16 +12,12 @@ export function useRainEffect(
     stateReference: MutableRefObject<RainEffectState>,
 ) {
     const initialState = stateReference.current || createRainState({
-        height: options.height,
-        width: options.width,
         count: options.count,
     });
     
     if (options.count !== initialState.particles.length) {
         if (initialState.particles.length < options.count) {
             const { particles } = createRainState({
-                height: options.height,
-                width: options.width,
                 count: options.count - initialState.particles.length,
             });
             initialState.particles = [...initialState.particles, ...particles]
@@ -38,8 +32,8 @@ export function useRainEffect(
         const context = canvas.getContext('2d')
         if (!context) return;
 
-        let width = (canvas.width = window.innerWidth);
-        let height = (canvas.height = window.innerHeight);
+        canvas.width = initialState.width;
+        canvas.height = initialState.height;
 
         const setCanvasStyles = () => {
             context.strokeStyle = "rgba(174,194,224,1)";
@@ -70,8 +64,10 @@ export function useRainEffect(
 
         // Handle window resize
         const handleResize = () => {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initialState.width = canvas.width;
+            initialState.height = canvas.height;
             setCanvasStyles();
         };
         window.addEventListener("resize", handleResize);
