@@ -18,9 +18,15 @@ export function drawRainEffect({
             const p = particles[i];
             p.x += p.xs;
             p.y += p.ys;
-            if (p.x > width || p.y > height) {
+            if (p.y > height) {
                 p.x = Math.random() * width;
                 p.y = -20;
+            } else if (p.x > width) {
+                p.y = Math.random() * height;
+                p.x = 0;
+            } else if (p.x < 0) {
+                p.y = Math.random() * height;
+                p.x = width;
             }
         }
     };
