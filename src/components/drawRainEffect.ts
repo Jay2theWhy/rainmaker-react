@@ -22,7 +22,7 @@ export function drawRainEffect({
             const speed = Math.random() * 2 + 1;
             splashes.push({
                 x: x,
-                y: y - 2,
+                y: y - 2, // slightly above the ground
                 vx: Math.cos(angle) * speed,
                 vy: Math.sin(angle) * speed,
                 radius: Math.random() * 1 + 0.5,
@@ -37,9 +37,9 @@ export function drawRainEffect({
             droplet.x += droplet.xs;
             droplet.y += droplet.ys;
 
+            // move droplet when it falls off-screen
             if (droplet.y > height) {
                 createSplash(droplet.x, height);
-
                 droplet.x = Math.random() * width;
                 droplet.y = -20;
             } else if (droplet.x > width) {

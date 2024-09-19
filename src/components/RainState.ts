@@ -22,6 +22,7 @@ export interface SplashState {
     alpha: number;
 }
 
+// create initial droplets
 export function createRainState (options: { count: number }): RainEffectState {
     let width = window.innerWidth;
     let height = window.innerHeight;

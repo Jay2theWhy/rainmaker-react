@@ -46,6 +46,7 @@ export function useRainEffect(
         const interval = 1000 / fallingSpeed;
         let lastTime = performance.now();
 
+        // render
         let animationFrameId: number;
         const render = (now: number) => {
             animationFrameId = requestAnimationFrame(render);
@@ -58,8 +59,6 @@ export function useRainEffect(
                 });
             }
         };
-
-        // render
         animationFrameId = requestAnimationFrame(render);
 
         // Handle window resize
