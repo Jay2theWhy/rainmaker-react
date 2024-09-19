@@ -5,6 +5,7 @@ import { drawRainEffect } from './drawRainEffect';
 export interface Options {
     count: number
     fps: number
+    fallSpeed: number
 }
 
 export function useRainEffect(
@@ -15,6 +16,7 @@ export function useRainEffect(
     const initialState = stateReference.current || createRainState({
         count: options.count,
         fps: options.fps,
+        fallSpeed: options.fallSpeed,
     });
     
     useEffect(() => {
