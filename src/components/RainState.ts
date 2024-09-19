@@ -32,7 +32,7 @@ export function createRainState (options: Options): RainEffectState {
     return {
         width,
         height,
-        droplets: createDroplets(width, height, options.count, options.fallSpeed),
+        droplets: createDroplets(width, height, options.count, options.fallSpeed, options.jitterX),
         splashes: [],
     }
 }
@@ -41,7 +41,8 @@ export function createDroplets(
     width: number,
     height: number,
     count: number,
-    fallSpeed: number
+    fallSpeed: number,
+    jitterX: number,
 ): DropletState[] {
     let droplets: DropletState[] = []
     for (let i = 0; i < count; i++) {
@@ -49,7 +50,7 @@ export function createDroplets(
             x: Math.random() * width,
             y: Math.random() * height,
             l: Math.random(),
-            xs: -4 + Math.random() * 4 + 2,
+            xs: Math.random() * fallSpeed * jitterX - fallSpeed * jitterX / 2,
             ys: Math.random() * fallSpeed / 2 + fallSpeed,
         });
     }

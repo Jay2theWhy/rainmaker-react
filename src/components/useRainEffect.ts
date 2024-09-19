@@ -6,6 +6,7 @@ export interface Options {
     count: number
     fps: number
     fallSpeed: number
+    jitterX: number
 }
 
 export function useRainEffect(
@@ -17,6 +18,7 @@ export function useRainEffect(
         count: options.count,
         fps: options.fps,
         fallSpeed: options.fallSpeed,
+        jitterX: options.jitterX,
     });
     
     useEffect(() => {
