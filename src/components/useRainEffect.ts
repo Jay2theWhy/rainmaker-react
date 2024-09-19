@@ -8,6 +8,7 @@ export interface Options {
     fallSpeed: number
     jitterX: number
     dropletLength: number
+    dropletWidth: number
     wind: number
 }
 
@@ -22,6 +23,7 @@ export function useRainEffect(
         fallSpeed: options.fallSpeed,
         jitterX: options.jitterX,
         dropletLength: options.dropletLength,
+        dropletWidth: options.dropletWidth,
         wind: options.wind,
     });
     
@@ -36,7 +38,7 @@ export function useRainEffect(
 
         const setCanvasStyles = () => {
             context.strokeStyle = "rgba(174,194,224,1)";
-            context.lineWidth = 1;
+            context.lineWidth = options.dropletWidth;
             context.lineCap = "round";
         }
         setCanvasStyles();

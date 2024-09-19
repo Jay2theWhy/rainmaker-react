@@ -9,6 +9,7 @@ interface Props {
     fallSpeed?: number
     jitterX?: number
     dropletLength?: number
+    dropletWidth?: number
     wind?: number
     className?: string
 }
@@ -19,6 +20,7 @@ export const RainEffect: React.FC<Props> = ({
     fallSpeed = 6,
     jitterX = 0.1,
     dropletLength = 3,
+    dropletWidth = 2,
     wind = 0,
     ...restProps
 }) => {
@@ -29,6 +31,7 @@ export const RainEffect: React.FC<Props> = ({
         fallSpeed,
         jitterX,
         dropletLength,
+        dropletWidth,
         wind,
     }));
 
@@ -38,6 +41,7 @@ export const RainEffect: React.FC<Props> = ({
         fallSpeed,
         jitterX,
         dropletLength,
+        dropletWidth,
         wind,
     }, stateReference);
 
