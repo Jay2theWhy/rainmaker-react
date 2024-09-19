@@ -1,7 +1,8 @@
 export interface RainEffectState {
     width: number
     height: number
-    particles: ParticleState[]
+    particles: ParticleState[],
+    splashes: SplashState[],
 }
 
 export interface ParticleState {
@@ -12,6 +13,15 @@ export interface ParticleState {
     ys: number;
 }
 
+export interface SplashState {
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    radius: number;
+    alpha: number;
+}
+
 export function createRainState (options: { count: number }): RainEffectState {
     let width = window.innerWidth;
     let height = window.innerHeight;
@@ -20,8 +30,8 @@ export function createRainState (options: { count: number }): RainEffectState {
         width,
         height,
         particles: createParticles(width, height, options.count),
+        splashes: [],
     }
-
 }
 
 export function createParticles(
