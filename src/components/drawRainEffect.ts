@@ -16,8 +16,8 @@ export function drawRainEffect({
     height,
 }: DrawState) {
     const createSplash = (x: number, y: number) => {
-        const numParticles = 5 + Math.floor(Math.random() * 5);
-        for (let i = 0; i < numParticles; i++) {
+        const numSplashParticles = 5 + Math.floor(Math.random() * 5);
+        for (let i = 0; i < numSplashParticles; i++) {
             const angle = Math.PI + (Math.random() * Math.PI);
             const speed = Math.random() * 2 + 1;
             splashes.push({
