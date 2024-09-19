@@ -4,6 +4,7 @@ import { drawRainEffect } from './drawRainEffect';
 
 export interface Options {
     count: number
+    fps: number
 }
 
 export function useRainEffect(
@@ -13,19 +14,9 @@ export function useRainEffect(
 ) {
     const initialState = stateReference.current || createRainState({
         count: options.count,
+        fps: options.fps,
     });
     
-    if (options.count !== initialState.droplets.length) {
-        if (initialState.droplets.length < options.count) {
-            const { droplets } = createRainState({
-                count: options.count - initialState.droplets.length,
-            });
-            initialState.droplets = [...initialState.droplets, ...droplets]
-        } else {
-            initialState.droplets.splice(0, initialState.droplets.length - options.count)
-        }
-    }
-
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
@@ -42,8 +33,7 @@ export function useRainEffect(
         }
         setCanvasStyles();
 
-        const fallingSpeed: number = 30;
-        const interval = 1000 / fallingSpeed;
+        const interval = 1000 / options.fps;
         let lastTime = performance.now();
 
         // render

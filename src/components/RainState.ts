@@ -1,3 +1,5 @@
+import { Options } from "./useRainEffect";
+
 export interface RainEffectState {
     width: number
     height: number
@@ -23,7 +25,7 @@ export interface SplashState {
 }
 
 // create initial droplets
-export function createRainState (options: { count: number }): RainEffectState {
+export function createRainState (options: Options): RainEffectState {
     let width = window.innerWidth;
     let height = window.innerHeight;
 
