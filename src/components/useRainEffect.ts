@@ -8,6 +8,7 @@ export interface Options {
     fallSpeed: number
     jitterX: number
     dropletLength: number
+    wind: number
 }
 
 export function useRainEffect(
@@ -21,6 +22,7 @@ export function useRainEffect(
         fallSpeed: options.fallSpeed,
         jitterX: options.jitterX,
         dropletLength: options.dropletLength,
+        wind: options.wind,
     });
     
     useEffect(() => {
