@@ -15,14 +15,14 @@ export function useRainEffect(
         count: options.count,
     });
     
-    if (options.count !== initialState.particles.length) {
-        if (initialState.particles.length < options.count) {
-            const { particles } = createRainState({
-                count: options.count - initialState.particles.length,
+    if (options.count !== initialState.droplets.length) {
+        if (initialState.droplets.length < options.count) {
+            const { droplets } = createRainState({
+                count: options.count - initialState.droplets.length,
             });
-            initialState.particles = [...initialState.particles, ...particles]
+            initialState.droplets = [...initialState.droplets, ...droplets]
         } else {
-            initialState.particles.splice(0, initialState.particles.length - options.count)
+            initialState.droplets.splice(0, initialState.droplets.length - options.count)
         }
     }
 

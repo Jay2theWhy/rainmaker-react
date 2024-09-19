@@ -1,11 +1,11 @@
 export interface RainEffectState {
     width: number
     height: number
-    particles: ParticleState[],
+    droplets: DropletState[],
     splashes: SplashState[],
 }
 
-export interface ParticleState {
+export interface DropletState{
     x: number;
     y: number;
     l: number;
@@ -29,19 +29,19 @@ export function createRainState (options: { count: number }): RainEffectState {
     return {
         width,
         height,
-        particles: createParticles(width, height, options.count),
+        droplets: createDroplets(width, height, options.count),
         splashes: [],
     }
 }
 
-export function createParticles(
+export function createDroplets(
     width: number,
     height: number,
     count: number,
-): ParticleState[] {
-    let particles: ParticleState[] = []
+): DropletState[] {
+    let droplets: DropletState[] = []
     for (let i = 0; i < count; i++) {
-        particles.push({
+        droplets.push({
             x: Math.random() * width,
             y: Math.random() * height,
             l: Math.random(),
@@ -49,5 +49,5 @@ export function createParticles(
             ys: Math.random() * 10 + 10,
         });
     }
-    return particles
+    return droplets;
 }

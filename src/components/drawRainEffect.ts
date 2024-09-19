@@ -1,8 +1,8 @@
-import { ParticleState, SplashState } from './RainState';
+import { DropletState, SplashState } from './RainState';
 
 export type DrawState = {
     context: CanvasRenderingContext2D
-    particles: ParticleState[]
+    droplets: DropletState[]
     splashes: SplashState[]
     width: number
     height: number
@@ -10,7 +10,7 @@ export type DrawState = {
 
 export function drawRainEffect({
     context,
-    particles,
+    droplets,
     splashes,
     width,
     height,
@@ -32,32 +32,32 @@ export function drawRainEffect({
     }
 
     const move = () => {
-        for (let i = 0; i < particles.length; i++) {
-            const p = particles[i];
-            p.x += p.xs;
-            p.y += p.ys;
+        for (let i = 0; i < droplets.length; i++) {
+            const droplet = droplets[i];
+            droplet.x += droplet.xs;
+            droplet.y += droplet.ys;
 
-            if (p.y > height) {
-                createSplash(p.x, height);
+            if (droplet.y > height) {
+                createSplash(droplet.x, height);
 
-                p.x = Math.random() * width;
-                p.y = -20;
-            } else if (p.x > width) {
-                p.y = Math.random() * height;
-                p.x = 0;
-            } else if (p.x < 0) {
-                p.y = Math.random() * height;
-                p.x = width;
+                droplet.x = Math.random() * width;
+                droplet.y = -20;
+            } else if (droplet.x > width) {
+                droplet.y = Math.random() * height;
+                droplet.x = 0;
+            } else if (droplet.x < 0) {
+                droplet.y = Math.random() * height;
+                droplet.x = width;
             }
         }
     }
 
     context.clearRect(0, 0, width, height);
-    for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
+    for (let i = 0; i < droplets.length; i++) {
+        const droplet = droplets[i];
         context.beginPath();
-        context.moveTo(p.x, p.y);
-        context.lineTo(p.x + p.l * p.xs, p.y + p.l * p.ys);
+        context.moveTo(droplet.x, droplet.y);
+        context.lineTo(droplet.x + droplet.l * droplet.xs, droplet.y + droplet.l * droplet.ys);
         context.stroke();
     }
 
