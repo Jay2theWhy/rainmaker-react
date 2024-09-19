@@ -8,6 +8,7 @@ interface Props {
     fps?: number
     fallSpeed?: number
     jitterX?: number
+    dropletLength?: number
     className?: string
 }
 
@@ -16,6 +17,7 @@ export const RainEffect: React.FC<Props> = ({
     fps = 60,
     fallSpeed = 6,
     jitterX = 0.1,
+    dropletLength = 3,
     ...restProps
 }) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -24,6 +26,7 @@ export const RainEffect: React.FC<Props> = ({
         fps,
         fallSpeed,
         jitterX,
+        dropletLength,
     }));
 
     useRainEffect(canvasRef, {
@@ -31,6 +34,7 @@ export const RainEffect: React.FC<Props> = ({
         fps,
         fallSpeed,
         jitterX,
+        dropletLength,
     }, stateReference);
 
     return <canvas

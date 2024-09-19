@@ -7,7 +7,7 @@ export interface RainEffectState {
     splashes: SplashState[],
 }
 
-export interface DropletState{
+export interface DropletState {
     x: number;
     y: number;
     l: number;
@@ -25,14 +25,14 @@ export interface SplashState {
 }
 
 // create initial droplets
-export function createRainState (options: Options): RainEffectState {
+export function createRainState(options: Options): RainEffectState {
     let width = window.innerWidth;
     let height = window.innerHeight;
 
     return {
         width,
         height,
-        droplets: createDroplets(width, height, options.count, options.fallSpeed, options.jitterX),
+        droplets: createDroplets(width, height, options.count, options.fallSpeed, options.jitterX, options.dropletLength),
         splashes: [],
     }
 }
@@ -43,13 +43,14 @@ export function createDroplets(
     count: number,
     fallSpeed: number,
     jitterX: number,
+    dropletLength: number,
 ): DropletState[] {
     let droplets: DropletState[] = []
     for (let i = 0; i < count; i++) {
         droplets.push({
             x: Math.random() * width,
             y: Math.random() * height,
-            l: Math.random(),
+            l: Math.random() * (dropletLength - 0.75 * dropletLength) + 0.75 * dropletLength, // vary length +/- 25%
             xs: Math.random() * fallSpeed * jitterX - fallSpeed * jitterX / 2,
             ys: Math.random() * fallSpeed / 2 + fallSpeed,
         });
