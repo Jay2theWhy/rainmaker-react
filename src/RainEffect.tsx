@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import "./RainEffect.css";
 import { createRainState, RainEffectState } from "./RainState";
 import { useRainEffect } from "./useRainEffect";
 
