@@ -10,6 +10,7 @@ interface Props {
     jitterX?: number
     dropletLength?: number
     dropletWidth?: number
+    dropletStyle?: string
     wind?: number
     bgStyle?: string
     noBackground?: boolean
@@ -23,8 +24,9 @@ export const RainEffect: React.FC<Props> = ({
     jitterX = 0.1,
     dropletLength = 3,
     dropletWidth = 2,
+    dropletStyle = 'rgba(43, 133, 194, 0.6)',
     wind = 0,
-    bgStyle = '#405d70',
+    bgStyle = 'rgb(64, 93, 112)',
     noBackground = false,
     ...restProps
 }) => {
@@ -36,6 +38,7 @@ export const RainEffect: React.FC<Props> = ({
         jitterX,
         dropletLength,
         dropletWidth,
+        dropletStyle,
         wind,
         bgStyle,
         noBackground,
@@ -48,6 +51,7 @@ export const RainEffect: React.FC<Props> = ({
         jitterX,
         dropletLength,
         dropletWidth,
+        dropletStyle,
         wind,
         bgStyle,
         noBackground,
