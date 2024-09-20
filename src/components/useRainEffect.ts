@@ -10,6 +10,8 @@ export interface Options {
     dropletLength: number
     dropletWidth: number
     wind: number
+    bgStyle: string
+    noBackground: boolean
 }
 
 export function useRainEffect(
@@ -25,6 +27,8 @@ export function useRainEffect(
         dropletLength: options.dropletLength,
         dropletWidth: options.dropletWidth,
         wind: options.wind,
+        bgStyle: options.bgStyle,
+        noBackground: options.noBackground,
     });
     
     useEffect(() => {
@@ -55,7 +59,7 @@ export function useRainEffect(
                 lastTime = now - (delta % interval);
                 drawRainEffect({
                     context,
-                    ...initialState
+                    ...initialState,
                 });
             }
         };

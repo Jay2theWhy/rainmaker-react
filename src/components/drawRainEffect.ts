@@ -6,6 +6,8 @@ export type DrawState = {
     splashes: SplashState[]
     width: number
     height: number
+    noBackground: boolean
+    bgStyle: string
 }
 
 export function drawRainEffect({
@@ -14,6 +16,8 @@ export function drawRainEffect({
     splashes,
     width,
     height,
+    noBackground,
+    bgStyle,
 }: DrawState) {
     const createSplash = (x: number, y: number) => {
         const numSplashParticles = 5 + Math.floor(Math.random() * 5);
@@ -52,13 +56,20 @@ export function drawRainEffect({
         }
     }
 
-    context.clearRect(0, 0, width, height);
+    if (!noBackground) {
+        context.fillStyle = bgStyle;
+        context.fillRect(0, 0, width, height);
+    } else {
+        context.clearRect(0, 0, width, height)
+    }
+
     for (let i = 0; i < droplets.length; i++) {
         const droplet = droplets[i];
         context.beginPath();
         context.moveTo(droplet.x, droplet.y);
         context.lineTo(droplet.x + droplet.l * droplet.xs, droplet.y + droplet.l * droplet.ys);
         context.stroke();
+        context.closePath();
     }
 
     for (let i = 0; i < splashes.length; i++) {
@@ -67,6 +78,7 @@ export function drawRainEffect({
         context.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
         context.fillStyle = `rgba(174,194,224,${s.alpha})`;
         context.fill();
+        context.closePath();
         s.x += s.vx;
         s.y += s.vy;
         s.radius -= 0.3;

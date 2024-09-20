@@ -11,6 +11,8 @@ interface Props {
     dropletLength?: number
     dropletWidth?: number
     wind?: number
+    bgStyle?: string
+    noBackground?: boolean
     className?: string
 }
 
@@ -22,6 +24,8 @@ export const RainEffect: React.FC<Props> = ({
     dropletLength = 3,
     dropletWidth = 2,
     wind = 0,
+    bgStyle = '#405d70',
+    noBackground = false,
     ...restProps
 }) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -33,6 +37,8 @@ export const RainEffect: React.FC<Props> = ({
         dropletLength,
         dropletWidth,
         wind,
+        bgStyle,
+        noBackground,
     }));
 
     useRainEffect(canvasRef, {
@@ -43,6 +49,8 @@ export const RainEffect: React.FC<Props> = ({
         dropletLength,
         dropletWidth,
         wind,
+        bgStyle,
+        noBackground,
     }, stateReference);
 
     return <canvas

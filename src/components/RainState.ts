@@ -5,6 +5,8 @@ export interface RainEffectState {
     height: number
     droplets: DropletState[],
     splashes: SplashState[],
+    bgStyle: string,
+    noBackground: boolean,
 }
 
 export interface DropletState {
@@ -34,6 +36,8 @@ export function createRainState(options: Options): RainEffectState {
         height,
         droplets: createDroplets(width, height, options.count, options.fallSpeed, options.jitterX, options.dropletLength, options.wind),
         splashes: [],
+        bgStyle: options.bgStyle,
+        noBackground: options.noBackground
     }
 }
 
