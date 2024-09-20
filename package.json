@@ -39,5 +39,25 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "react component that generate rain effects",
+  "main": "index.ts",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jay2theWhy/rainmaker-react.git"
+  },
+  "keywords": [
+    "react",
+    "component",
+    "rain",
+    "canvas",
+    "splash"
+  ],
+  "author": "Jay Fan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Jay2theWhy/rainmaker-react/issues"
+  },
+  "homepage": "https://github.com/Jay2theWhy/rainmaker-react#readme"
 }
