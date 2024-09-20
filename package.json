@@ -17,10 +17,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": "tsc"
   },
   "eslintConfig": {
     "extends": [
@@ -41,7 +38,10 @@
     ]
   },
   "description": "react component that generate rain effects",
-  "main": "index.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/types/index.d.ts",
+  "files": ["dist"],
   "devDependencies": {},
   "repository": {
     "type": "git",
