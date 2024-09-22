@@ -20,20 +20,11 @@ export function useRainEffect(
   options: Options,
   stateReference: MutableRefObject<RainEffectState>
 ) {
-  const initialState =
-    stateReference.current ||
-    createRainState({
-      count: options.count,
-      fps: options.fps,
-      fallSpeed: options.fallSpeed,
-      jitterX: options.jitterX,
-      dropletLength: options.dropletLength,
-      dropletWidth: options.dropletWidth,
-      dropletStyle: options.dropletStyle,
-      wind: options.wind,
-      bgStyle: options.bgStyle,
-      noBackground: options.noBackground,
-    });
+  if (stateReference.current) {
+    stateReference.current.updateProps(options);
+  } else {
+    stateReference.current = createRainState(options);
+  }
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -41,8 +32,8 @@ export function useRainEffect(
     const context = canvas.getContext("2d");
     if (!context) return;
 
-    canvas.width = initialState.width;
-    canvas.height = initialState.height;
+    canvas.width = stateReference.current!.width;
+    canvas.height = stateReference.current!.height;
 
     const setCanvasStyles = () => {
       context.strokeStyle = options.dropletStyle;
@@ -63,7 +54,7 @@ export function useRainEffect(
         lastTime = now - (delta % interval);
         drawRainEffect({
           context,
-          ...initialState,
+          ...stateReference.current!,
         });
       }
     };
@@ -73,8 +64,8 @@ export function useRainEffect(
     const handleResize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      initialState.width = canvas.width;
-      initialState.height = canvas.height;
+      stateReference.current!.width = canvas.width;
+      stateReference.current!.height = canvas.height;
       setCanvasStyles();
     };
     window.addEventListener("resize", handleResize);
@@ -84,5 +75,5 @@ export function useRainEffect(
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener("resize", handleResize);
     };
-  });
+  }, [canvasRef]);
 }

@@ -8,6 +8,10 @@ export interface RainEffectState {
   dropletStyle: string;
   bgStyle: string;
   noBackground: boolean;
+  fallSpeed: number;
+  wind: number;
+  updateProps: (options: Options) => void;
+  updateDroplets: (newCount: number, options: Options) => void;
 }
 
 export interface DropletState {
@@ -38,40 +42,82 @@ export function createRainState(options: Options): RainEffectState {
     droplets: createDroplets(
       width,
       height,
-      options.count,
-      options.fallSpeed,
-      options.jitterX,
-      options.dropletLength,
-      options.wind
+      options
     ),
     splashes: [],
     dropletStyle: options.dropletStyle,
     bgStyle: options.bgStyle,
     noBackground: options.noBackground,
+    fallSpeed: options.fallSpeed,
+    wind: options.wind,
+    updateProps,
+    updateDroplets,
   };
 }
 
 export function createDroplets(
   width: number,
   height: number,
-  count: number,
-  fallSpeed: number,
-  jitterX: number,
-  dropletLength: number,
-  wind: number
+  options: Options,
 ): DropletState[] {
   let droplets: DropletState[] = [];
-  for (let i = 0; i < count; i++) {
-    droplets.push({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      l:
-        Math.random() * (dropletLength - 0.75 * dropletLength) +
-        0.75 * dropletLength, // vary length +/- 25%
-      xs:
-        Math.random() * fallSpeed * jitterX - (fallSpeed * jitterX) / 2 + wind,
-      ys: (Math.random() * fallSpeed) / 2 + fallSpeed,
-    });
+  for (let i = 0; i < options.count; i++) {
+    droplets.push(createDroplet(width, height, options));
   }
   return droplets;
+}
+
+function createDroplet(
+  width: number,
+  height: number,
+  options: Options
+): DropletState {
+  const { fallSpeed, jitterX, dropletLength, wind } = options;
+  return {
+    x: Math.random() * width,
+    y: Math.random() * height,
+    l:
+      Math.random() * (dropletLength - 0.75 * dropletLength) +
+      0.75 * dropletLength,
+    xs:
+      Math.random() * fallSpeed * jitterX -
+      (fallSpeed * jitterX) / 2 +
+      wind,
+    ys: (Math.random() * fallSpeed) / 2 + fallSpeed,
+  };
+}
+
+function updateProps(this: RainEffectState, options: Options) {
+  this.dropletStyle = options.dropletStyle
+  this.bgStyle = options.bgStyle;
+  this.noBackground = options.noBackground;
+  this.fallSpeed = options.fallSpeed;
+  this.wind = options.wind;
+
+  // Adjust droplets
+  this.updateDroplets(options.count, options);
+}
+
+function updateDroplets(this: RainEffectState, newCount: number, options: Options) {
+  const currentCount = this.droplets.length;
+  if (newCount > currentCount) {
+    for (let i = 0; i < newCount - currentCount; i++) {
+      this.droplets.push(createDroplet(this.width, this.height, options))
+    }
+  } else if (newCount < currentCount) {
+    // remove excess droplets
+    this.droplets.splice(newCount, currentCount - newCount);
+  }
+
+  // Update existing droplets
+  for (const droplet of this.droplets) {
+    droplet.xs =
+      Math.random() * options.fallSpeed * options.jitterX -
+      (options.fallSpeed * options.jitterX) / 2 +
+      options.wind;
+    droplet.ys = (Math.random() * options.fallSpeed) / 2 + options.fallSpeed;
+    droplet.l =
+      Math.random() * (options.dropletLength - 0.75 * options.dropletLength) +
+      0.75 * options.dropletLength;
+  }
 }

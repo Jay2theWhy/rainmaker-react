@@ -30,8 +30,11 @@ export const RainEffect: React.FC<Props> = ({
   ...restProps
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const stateReference = useRef<RainEffectState>(
-    createRainState({
+  const stateReference = useRef<RainEffectState | null>(null);
+
+  if (!stateReference.current) {
+    // Initialize state on first render
+    stateReference.current = createRainState({
       count,
       fps,
       fallSpeed,
@@ -42,8 +45,22 @@ export const RainEffect: React.FC<Props> = ({
       wind,
       bgStyle,
       noBackground,
-    })
-  );
+    });
+  } else {
+    // Update state when props change
+    stateReference.current.updateProps({
+      count,
+      fps,
+      fallSpeed,
+      jitterX,
+      dropletLength,
+      dropletWidth,
+      dropletStyle,
+      wind,
+      bgStyle,
+      noBackground,
+    });
+  }
 
   useRainEffect(
     canvasRef,
@@ -59,8 +76,8 @@ export const RainEffect: React.FC<Props> = ({
       bgStyle,
       noBackground,
     },
-    stateReference
+    stateReference as React.MutableRefObject<RainEffectState>
   );
 
-  return <canvas ref={canvasRef} {...{ count, fps }} {...restProps} />;
+  return <canvas ref={canvasRef} {...restProps}/>;
 };
