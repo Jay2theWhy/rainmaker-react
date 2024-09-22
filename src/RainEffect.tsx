@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import { createRainState, RainEffectState } from "./RainState";
 import { useRainEffect } from "./useRainEffect";
-import "./RainEffect.css";
 
 interface Props {
   count?: number;
