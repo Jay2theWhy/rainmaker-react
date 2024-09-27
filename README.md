@@ -19,21 +19,29 @@ import { RainEffect } from "rainmaker-react";
 3. Use the default React Component for use your customize your own properties
 
 ```js
-// default
-<RainEffect />
+import React from "react";
 
-// custom
-<RainEffect
-    className="rain-effect"
-    count={COUNT}
-    wind={WIND}
-    fps={FPS}
-    fallSpeed={FALLSPEED}
-    jitterX={JITTER}
-    dropletLength={LENGTH}
-    dropletWidth={WIDTH}
-    dropletStyle={STYLE}
-    bgStyle={BGSTYLE}
-    noBackground={NO_BACKGROUND}
-/>
+const App: React.FC = () => {
+  return (
+    <div>
+      {/* default */}
+      <RainEffect />
+
+      {/* custom */}
+      <RainEffect
+        className="rain-effect"
+        count={COUNT}
+        wind={WIND}
+        fps={FPS}
+        fallSpeed={FALLSPEED}
+        jitterX={JITTER}
+        dropletLength={LENGTH}
+        dropletWidth={WIDTH}
+        dropletStyle={STYLE}
+        bgStyle={BGSTYLE}
+        noBackground={NO_BACKGROUND}
+      />
+    </div>
+  );
+};
 ```
